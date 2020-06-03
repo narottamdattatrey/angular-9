@@ -1,0 +1,20 @@
+<div class="mat-title">Edit Person</div>
+<form [formGroup]="editPersonForm" novalidate (submit)="submit()" fxLayout="column">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>mobile</mat-label>
+    <input matInput formControlName="mobile">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>age</mat-label>
+    <input matInput formControlName="age">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>address</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+  <button mat-stroked-button color="primary" type="submit">Update Person</button>
+</form>

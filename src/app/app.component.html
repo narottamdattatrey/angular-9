@@ -1,0 +1,45 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="mat-title">List of person</div>
+  <div fxLayout="row" fxLayoutAlign="end  center" fxLayoutGap="8px">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-icon>search</mat-icon>
+      <input type="search" placeholder="search here" class="search-input mat-elevation-z1" [(ngModel)]="searchKey">
+    </div>
+    <ng-container *ngIf="(localData | filter: searchKey) as data; else elseTemplate">
+      <ng-container *ngFor="let item of data">
+        <mat-list class="custom-list mat-elevation-z2">
+          <mat-list-item>{{item.name}} <span style="margin-left: 8px;">{{item.mobile}}</span></mat-list-item>
+        </mat-list>
+      </ng-container>
+      
+    </ng-container>
+    
+    <button mat-stroked-button color="primary" (click)="openDialog()">Add Person</button>
+  </div>
+</div>
+<div fxLayout="row">
+  <table mat-table [dataSource]="localData" class="mat-elevation-z1" fxFlex="auto">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mobile">
+      <th mat-header-cell *matHeaderCellDef> Mobile </th>
+      <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editPerson(row)"></tr>
+  </table>
+  <div fxFlex="30" *ngIf="open">
+
+    <button mat-icon-button color="primary" aria-label="Close panel" (click)="closedPanel($event)">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <ng-container *ngIf="editedPerson">
+      <app-child [person]="editedPerson" (editedPerson)="editPersonData($event)"></app-child>
+    </ng-container>
+  </div>
+</div>
